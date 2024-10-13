@@ -1,0 +1,155 @@
+body {
+    padding: 0;
+    margin: 0;
+    background-color: #0c1330;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    height: 400px;
+    width: 270px;
+    position: relative;
+    border-radius: 270px;
+    overflow: hidden;
+}
+
+.sky {
+    position: absolute;
+    inset: 0;
+    animation: sky-transition 20s infinite linear;
+}
+
+@keyframes sky-transition {
+    0%, 30% { background: linear-gradient(#57a3ff, #c7e4ff); }
+    20% { background: linear-gradient(#ff7e50, #ffc087); }
+    50%, 85% { background: linear-gradient(#0c1330, #1a2142); }
+    90%, 100% { background: linear-gradient(#57a3ff, #c7e4ff); }
+}
+
+.sun {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    top: 50%;
+    background: #ffd700;
+    border-radius: 50%;
+    box-shadow: 0 0 60px #ffd700;
+    animation: sun-move 20s infinite linear;
+}
+
+@keyframes sun-move {
+    0% { 
+        transform: translate(-60px, -50%);
+        opacity: 1;
+    }
+    40% { 
+        transform: translate(270px, -50%);
+        opacity: 1;
+    }
+    45% {
+        transform: translate(330px, -50%);
+        opacity: 0;
+    }
+    100% {
+        transform: translate(330px, -50%);
+        opacity: 0;
+    }
+}
+
+.moon {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    top: 50%;
+    background: #ffffff;
+    border-radius: 50%;
+    box-shadow: inset -10px 2px 20px #c7c7c7, 0 0 20px rgba(255, 255, 255, 0.4);
+    animation: moon-move 20s infinite linear;
+}
+
+@keyframes moon-move {
+    0%, 45% {
+        transform: translate(330px, -50%);
+        opacity: 0;
+    }
+    50% { 
+        transform: translate(270px, -50%);
+        opacity: 1;
+    }
+    85% { 
+        transform: translate(-60px, -50%);
+        opacity: 1;
+    }
+    90%, 100% {
+        transform: translate(-60px, -50%);
+        opacity: 0;
+    }
+}
+
+.stars {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    animation: stars-visibility 20s infinite linear;
+}
+
+@keyframes stars-visibility {
+    0%, 45% { opacity: 0; }
+    50%, 85% { opacity: 1; }
+    90%, 100% { opacity: 0; }
+}
+
+.stars::before,
+.stars::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(2px 2px at var(--x) var(--y), white, transparent);
+    background-size: 200px 200px;
+    animation: twinkle 1s infinite alternate;
+}
+
+.stars::before {
+    --x: 25%;
+    --y: 25%;
+    opacity: 0.5;
+}
+
+.stars::after {
+    --x: 75%;
+    --y: 75%;
+    animation-delay: 0.5s;
+    opacity: 0.3;
+}
+
+@keyframes twinkle {
+    0% { opacity: 0.3; }
+    100% { opacity: 1; }
+}
+
+.container::before,
+.container::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(2px 2px at var(--x) var(--y), white, transparent);
+    background-size: 150px 150px;
+    opacity: 0;
+    animation: stars-visibility 20s infinite linear,
+               twinkle 1.5s infinite alternate;
+}
+
+.container::before {
+    --x: 40%;
+    --y: 60%;
+}
+
+.container::after {
+    --x: 60%;
+    --y: 40%;
+    animation-delay: 0.75s;
+}
+
